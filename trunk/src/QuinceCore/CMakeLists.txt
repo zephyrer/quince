@@ -1,0 +1,79 @@
+# Copyright (c) neuron Inc. 2012-
+# All rights reserved.
+# Author: Chen Zeshi, Scott  
+
+#
+# Project Properties
+#
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+PROJECT (QuinceCore)
+SET (APPLICATION_NAME "Quince Core")
+SET (APPLICATION_CODENAME "${PROJECT_NAME}")
+SET (APPLICATION_COPYRIGHT_YEARS "2012")
+SET (APPLICATION_VERSION_MAJOR 1)
+SET (APPLICATION_VERSION_MINOR 0)
+SET (APPLICATION_VERSION_PATCH 0)
+SET (APPLICATION_VERSION_TYPE SNAPSHOT)
+SET (APPLICATION_VERSION_STRING "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}.${APPLICATION_VERSION_PATCH}-${APPLICATION_VERSION_TYPE}")
+SET (APPLICATION_VENDOR_ID "com.neuron")
+SET (APPLICATION_VENDOR_NAME "neuron Inc")
+SET (APPLICATION_VENDOR_URL "www.neuron.com")
+SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
+
+#
+# Configure Files
+#
+FILE (GLOB_RECURSE CONFIGINPUTS1 *.in.h.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS2 *.h.in.cmake)
+
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS2}")
+FOREACH (CONFIGINPUT ${CONFIGINPUTS})
+    STRING (REPLACE ".in.h.cmake" ".h" CONFIGOUTPUT1 "${CONFIGINPUT}")
+    STRING (REPLACE ".h.in.cmake" ".h" CONFIGOUTPUT2 "${CONFIGOUTPUT1}")
+    CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
+ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
+
+FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c)
+SET (project_LIBS ${Boost_LIBRARIES})
+
+#
+# Add Precompile File
+#
+MACRO(ADD_PCH_RULE header_filename project_srcs)
+#IF(MSVC)
+#    IF(USE_MSVC_PCH)
+#        SET_SOURCE_FILES_PROPERTIES("Stdafx.cpp"
+#                                    PROPERTIES
+#                                    COMPILE_FLAGS "/YcStdafx.h")
+#        FOREACH(SRC_FILE ${project_srcs})
+#            SET_SOURCE_FILES_PROPERTIES(${SRC_FILE}
+#                                        PROPERTIES
+#                                        COMPILE_FLAGS "/YuStdafx.h")
+#        ENDFOREACH(SRC_FILE ${project_srcs})
+#   ENDIF(USE_MSVC_PCH)
+#ELSE(MSVC)
+    SET(_gch_filename "${header_filename}.gch")
+    LIST(APPEND ${project_srcs}  ${_gch_filename})
+    SET(_args ${CMAKE_CXX_FLAGS})
+    LIST(APPEND _args -c ${header_filename} -o ${_gch_filename})
+    GET_DIRECTORY_PROPERTY(DIRINC INCLUDE_DIRECTORIES)
+    FOREACH(_inc ${DIRINC})
+        LIST(APPEND _args "-I" ${_inc})
+    ENDFOREACH(_inc ${DIRINC})
+        SEPARATE_ARGUMENTS(_args)
+        ADD_CUSTOM_COMMAND(OUTPUT ${_gch_filename}
+                           COMMAND rm -f ${_gch_filename}
+                           COMMAND ${CMAKE_CXX_COMPILER}
+                           ${CMAKE_CXX_COMPILER_ARG1} ${_args}
+                           DEPENDS ${header_filename})
+#ENDIF(MSVC)
+ENDMACRO(ADD_PCH_RULE header_filename project_srcs)
+
+ADD_PCH_RULE("Stdafx.h" ${project_SRCS})
+
+ADD_LIBRARY(${PROJECT_NAME} SHARED ${project_SRCS})
+
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${project_LIBS})
+SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${PROJECT_NAME} CLEAN_DIRECT_OUTPUT 1)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib)
