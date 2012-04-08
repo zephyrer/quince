@@ -6,20 +6,18 @@
 
 =============================================================================*/
 
-#ifndef QUICECORE_STDAFX_H
-#define QUICECORE_STDAFX_H
-
-#define QUINCECORE_EXPORTS
-
-#include "QuinceCore.h"
-
-#include <limits>
-#include <iostream>
-#include <string>
+#ifndef QUINCECORE_LOGGER_H
+#define QUINCECORE_LOGGER_H
 
 namespace QuinceSystem
 {
-    using std::string;
+
+class QUINCECORE_DLLAPI Logger
+{
+public:
+
+};
+
 }
 
-#endif
+#endif // QUINCECORE_LOGGER_H

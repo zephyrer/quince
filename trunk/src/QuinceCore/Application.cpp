@@ -6,20 +6,12 @@
 
 =============================================================================*/
 
-#ifndef QUICECORE_STDAFX_H
-#define QUICECORE_STDAFX_H
+#include "Stdafx.h"
+#include "Application.h"
 
-#define QUINCECORE_EXPORTS
+using namespace QuinceSystem;
 
-#include "QuinceCore.h"
-
-#include <limits>
-#include <iostream>
-#include <string>
-
-namespace QuinceSystem
+Application::Application(int argc, char** argv) 
+ : mArgc(argc), mArgv(argv)
 {
-    using std::string;
 }
-
-#endif
