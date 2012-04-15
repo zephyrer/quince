@@ -33,7 +33,7 @@ FOREACH (CONFIGINPUT ${CONFIGINPUTS})
     CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
 ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 
-FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c)
+FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 SET (project_LIBS ${Boost_LIBRARIES})
 
 #
