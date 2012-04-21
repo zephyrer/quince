@@ -6,18 +6,7 @@
 
 =============================================================================*/
 
-#ifndef QUINCECORE_LOGGER_H
-#define QUINCECORE_LOGGER_H
+#include "Stdafx.h"
+#include "Object.h"
 
-namespace QuinceSystem
-{
-
-class QUINCECORE_DLLAPI Logger
-{
-public:
-
-};
-
-}
-
-#endif // QUINCECORE_LOGGER_H
+using namespace QuinceSystem;
