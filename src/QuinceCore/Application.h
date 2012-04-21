@@ -12,18 +12,16 @@
 namespace QuinceSystem
 {
 
-class Logger;
 class MessageDispatcher;
 
 class QUINCECORE_DLLAPI Application
 {
 public:
     virtual ~Application() {}
-    virtual MessageDispatcher & dispatcher() const = 0;
-    virtual Logger & logger() const = 0;   
-protected:
+    virtual MessageDispatcher & dispatcher() const = 0; 
     explicit Application(int argc, char** argv);
 
+private:
     int mArgc;
     char** mArgv;
 };

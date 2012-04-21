@@ -8,8 +8,10 @@
 
 #include "Stdafx.h"
 
+
 void init()
 {
+	logging::init_log_to_console(std::clog, keywords::format = "%TimeStamp%: %_%");
 	logging::core::get()->set_filter
 	(
 		filters::attr< logging::trivial::severity_level > ("Severity") >= logging::trivial::info
