@@ -115,7 +115,7 @@ ObjectPath::toString() const
 	for (size_t i = 0; i < size(); ++i) {
 		result += lexical_cast<string>(operator[](i)) + '.';
 	}
-	if (not result.empty()) {
+	if (!result.empty()) {
 		result.resize(result.size() - 1);
 	}
 	return result;
