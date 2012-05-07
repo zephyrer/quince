@@ -14,8 +14,8 @@ using namespace QuinceSystem;
 unsigned int ObjectID::sNextValue = 1;
 
 ObjectID::ObjectID()
+ : mValue(sNextValue++)
 {
-    mValue = sNextValue++;
 }
 
 ObjectID::ObjectID(unsigned int v) 
