@@ -45,7 +45,8 @@ private:
     static unsigned int sNextValue;
 
     friend class boost::serialization::access;
-    template <typename Archive> void serialize(Archive &ar, const unsigned int) {
+    template <typename Archive> void serialize(Archive &ar, const unsigned int) 
+    {
         ar & mValue;
         sNextValue = std::max(sNextValue, mValue + 1);
         ar & sNextValue;
