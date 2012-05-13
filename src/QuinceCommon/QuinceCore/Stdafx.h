@@ -6,11 +6,12 @@
 
 =============================================================================*/
 
-#ifndef QUINCESKETCH_STDAFX_H
-#define QUINCESKETCH_STDAFX_H
+#ifndef QUICECORE_STDAFX_H
+#define QUICECORE_STDAFX_H
 
-#include "QuinceSketch.h"
+#define QUINCECORE_EXPORTS
+#include "QuinceCore.h"
 #include "StdCommon.h"
 #include "BoostCommon.h"
 
-#endif 
+#endif

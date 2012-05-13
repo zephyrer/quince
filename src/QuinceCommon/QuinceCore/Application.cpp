@@ -6,11 +6,12 @@
 
 =============================================================================*/
 
-#ifndef QUINCESKETCH_STDAFX_H
-#define QUINCESKETCH_STDAFX_H
+#include "Stdafx.h"
+#include "Application.h"
 
-#include "QuinceSketch.h"
-#include "StdCommon.h"
-#include "BoostCommon.h"
+using namespace QuinceSystem;
 
-#endif 
+Application::Application(int argc, char** argv) 
+ : mArgc(argc), mArgv(argv)
+{
+}
