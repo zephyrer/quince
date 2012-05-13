@@ -6,11 +6,19 @@
 
 =============================================================================*/
 
-#ifndef QUINCESKETCH_STDAFX_H
-#define QUINCESKETCH_STDAFX_H
+#include "Stdafx.h"
+#include "ObjectID.h"
 
-#include "QuinceSketch.h"
-#include "StdCommon.h"
-#include "BoostCommon.h"
+using namespace QuinceSystem;
 
-#endif 
+unsigned int ObjectID::sNextValue = 1;
+
+ObjectID::ObjectID()
+ : mValue(sNextValue++)
+{
+}
+
+ObjectID::ObjectID(unsigned int v) 
+ : mValue(v)
+{
+}
