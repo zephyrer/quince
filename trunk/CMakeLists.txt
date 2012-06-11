@@ -4,8 +4,11 @@
 # Solution Properties
 #
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+IF(MSVC)
+ELSE(MSVC)
 SET(CMAKE_CXX_COMPILER /usr/bin/g++)
 SET(CMAKE_CXX_FLAGS "-Wall -std=gnu++0x")
+ENDIF(MSVC)
 
 PROJECT(QuinceSystem)
 
