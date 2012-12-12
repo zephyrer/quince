@@ -1,6 +1,4 @@
 FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET(CMAKE_CXX_COMPILER /usr/bin/g++)
-SET(CMAKE_CXX_FLAGS "-Wall -std=gnu++0x")
 
 SET (PROJECT_NAME QuinceCore-unittests)
 SET (Quince_LIBS "QuinceCore")

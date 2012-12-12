@@ -15,7 +15,11 @@
 #define LINUX 1
 #endif 
 
-#if defined QUINCEDOC_STATIC || defined LINUX
+#if defined (__MACH__) || defined (__APPLE__)
+#define MACOS 1
+#endif
+
+#if defined QUINCEDOC_STATIC || defined LINUX || defined MACOS
     #define QUINCEDOC_DLLAPI
 #else
     #ifdef QUINCEDOC_EXPORTS

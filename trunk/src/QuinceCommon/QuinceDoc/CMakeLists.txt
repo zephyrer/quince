@@ -6,8 +6,6 @@
 # Project Properties
 #
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-SET(CMAKE_CXX_COMPILER /usr/bin/g++)
-SET(CMAKE_CXX_FLAGS "-Wall -std=gnu++0x")
 
 PROJECT (QuinceDoc)
 SET (APPLICATION_NAME "Quince Document")

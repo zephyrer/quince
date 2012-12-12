@@ -20,24 +20,7 @@
 #include <boost/assign.hpp>
 #include <boost/foreach.hpp>
 #include <boost/signal.hpp>
-
-#include <boost/log/common.hpp>
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/filters.hpp>
-#include <boost/log/formatters.hpp>
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/filters.hpp>
-#include <boost/log/sinks/sink.hpp>
-#include <boost/log/utility/init/to_file.hpp>
-#include <boost/log/formatters.hpp>
-#include <boost/log/common.hpp>
-#include <boost/filesystem.hpp> 
-#include <boost/log/utility/init/to_console.hpp>
-#include <boost/log/utility/init/common_attributes.hpp>
-#include <boost/log/attributes/timer.hpp>
-
+#include <boost/lexical_cast.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/serialization.hpp>
@@ -53,15 +36,9 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/export.hpp> 
   
-namespace logging = boost::log;
-namespace sinks = boost::log::sinks;
-namespace sources = boost::log::sources;
-//namespace formatters = boost::log::formatters;
-namespace filters = boost::log::filters;
-namespace attributes = boost::log::attributes;
-namespace keywords = boost::log::keywords;
-
 #define foreach BOOST_FOREACH
+
+using boost::lexical_cast;
 
 #ifdef _MSC_VER
 	#pragma warning(pop)

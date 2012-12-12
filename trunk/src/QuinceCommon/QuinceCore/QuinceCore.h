@@ -13,7 +13,11 @@
 #define LINUX 1
 #endif 
 
-#if defined QUINCECORE_STATIC || defined LINUX
+#if defined (__MACH__) || defined (__APPLE__)
+#define MACOS 1
+#endif
+
+#if defined QUINCECORE_STATIC || defined LINUX || defined MACOS
     #define QUINCECORE_DLLAPI
 #else
     #ifdef QUINCECORE_EXPORTS
