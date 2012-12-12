@@ -85,7 +85,6 @@ Entity::childFromPath(const ObjectPath &path) const
     }
     else
     {
-        BOOST_LOG_TRIVIAL(error) << "childFromPath() with empty path";
     }
     return shared_ptr<Object>();
 }
