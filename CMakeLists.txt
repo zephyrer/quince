@@ -4,7 +4,11 @@
 # Solution Properties
 #
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
-SET( CMAKE_CXX_COMPILER /opt/local/bin/g++-mp-4.8 )
+
+if(APPLE)
+    SET( CMAKE_CXX_COMPILER /opt/local/bin/g++-mp-4.8 )
+endif(APPLE)
+
 if(CMAKE_COMPILER_IS_GNUCXX)
    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
    if (GCC_VERSION VERSION_GREATER 4.7 OR GCC_VERSION VERSION_EQUAL 4.7)
