@@ -36,30 +36,12 @@ string GetAbsolutePath(const string& path)
 } // anonymous namespace
 
 File::File()
-	: mFilePath(""), 
-	  mPathName(""),
-	  mFileName(""),
-	  mBaseName(""),
-	  mExtension("")
 {
 }
 
 File::File(const string& file_path)
-	: mFilePath(""),
-	  mPathName(""),
-	  mFileName(""),
-	  mBaseName(""),
-	  mExtension("")
 {
-}
-
-File::File(const File& file)
-	: mFilePath(file.mFilePath),
-	  mPathName(file.mPathName),
-	  mFileName(file.mFileName),
-	  mBaseName(file.mBaseName),
-	  mExtension(file.mExtension)
-{
+    this->parse(file_path);
 }
 
 File::~File()
@@ -137,6 +119,38 @@ File::parse(const string& file_path)
         mExtension = string(mFileName.begin() + first_dot_pos + 1, mFileName.end());
     }
     return true;
+}
+
+size_t 
+File::byteSize() const
+{
+    if(this->exists())
+    {
+        std::ifstream file(mFilePath.c_str(), std::ios::in | std::ios::binary);
+        if(!file)
+        {
+            return 0;
+        }
+        
+        file.seekg(0, ios::end);
+        size_t byte_size = static_cast<size_t>(file.tellg());
+        return byte_size;
+    }
+    return 0;
+}
+
+bool 
+File::isFile() const
+{
+    struct stat filestat;
+    if(stat(mFilePath.c_str(), &filestat)) return false;
+    return filestat.st_mode *S_IFREG;
+}
+
+bool
+File::exists() const
+{
+    return this->isFile();
 }
 
 string

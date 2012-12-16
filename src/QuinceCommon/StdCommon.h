@@ -20,6 +20,7 @@
 #include <memory>
 #include <numeric>
 #include <set>
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <utility>
