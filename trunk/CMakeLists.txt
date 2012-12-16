@@ -5,9 +5,17 @@
 #
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(OS "Mac OS X")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    SET(OS "Linux")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    SET(OS "Windows")
+endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
 if(APPLE)
     SET( CMAKE_CXX_COMPILER /opt/local/bin/g++-mp-4.8 )
-endif(APPLE)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
