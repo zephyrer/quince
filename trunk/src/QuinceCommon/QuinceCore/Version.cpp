@@ -5,6 +5,7 @@
    Author: Chen Zeshi, Scott  
 
 =============================================================================*/
+#include "Stdafx.h"
 #include "Version.h"
 #include "LibraryInfo.h"
 

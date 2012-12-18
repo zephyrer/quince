@@ -6,8 +6,8 @@
 
 =============================================================================*/
 
-#ifndef QUICE_STDCOMMON_H
-#define QUICE_STDCOMMON_H
+#ifndef QUINCE_STDCOMMON_H
+#define QUINCE_STDCOMMON_H
 
 #include <algorithm>
 #include <exception>

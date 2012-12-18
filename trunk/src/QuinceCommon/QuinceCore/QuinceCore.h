@@ -9,15 +9,7 @@
 #ifndef QUINCESYSTEM_QUINCECORE_H
 #define QUINCESYSTEM_QUINCECORE_H
 
-#if defined (__linux__) || defined (__linux)
-#define LINUX 1
-#endif 
-
-#if defined (__MACH__) || defined (__APPLE__)
-#define MACOS 1
-#endif
-
-#if defined QUINCECORE_STATIC || defined LINUX || defined MACOS
+#if defined QUINCECORE_STATIC || defined QUINCE_PLATFORM_LINUX || defined QUINCE_PLATFORM_MACOS
     #define QUINCECORE_DLLAPI
 #else
     #ifdef QUINCECORE_EXPORTS
