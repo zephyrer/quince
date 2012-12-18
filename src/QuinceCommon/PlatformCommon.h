@@ -6,15 +6,14 @@
 
 =============================================================================*/
 
-#ifndef QUICECORE_STDAFX_H
-#define QUICECORE_STDAFX_H
+#ifndef QUICE_PLATFORMCOMMON_H
+#define QUICE_PLATFORMCOMMON_H
 
-#define QUINCECORE_EXPORTS
-
-#include "StdCommon.h"
-#include "BoostCommon.h"
-#include "PlatformCommon.h"
-
-#include "QuinceCore.h"
+#include "Platform.h"
+#if defined QUINCE_PLATFORM_WINDOWS
+#include <windows.h>
+#else
+#include <sys/stat.h>
+#endif
 
 #endif

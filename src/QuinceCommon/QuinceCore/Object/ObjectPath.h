@@ -11,6 +11,11 @@
 
 #include "ObjectID.h"
 
+#ifdef _MSC_VER
+	#pragma warning(push)
+	#pragma warning(disable: 4251)
+#endif
+
 namespace QuinceSystem
 {
 
@@ -46,5 +51,8 @@ QUINCECORE_DLLAPI bool operator < (const ObjectPath &, const ObjectPath &);
 
 }
 
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#endif // _MSC_VER
 
 #endif // QUINCECORE_OBJECTPATH_H

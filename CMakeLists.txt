@@ -28,9 +28,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
    else ()
         message(FATAL_ERROR "C++11 needed. Therefore a gcc compiler with a version higher than 4.3 is needed.")   
    endif()
-else(CMAKE_COMPILER_IS_GNUCXX)
-   add_definitions("-std=c++0x") 
 endif(CMAKE_COMPILER_IS_GNUCXX)
+
 PROJECT(QuinceSystem)
 # have a test
 #

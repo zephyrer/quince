@@ -25,11 +25,16 @@ const size_t kMaxPathLength = 4096;
 string GetAbsolutePath(const string& path)    
 {
     char absolutePath[kMaxPathLength];
+
+#if defined QUINCE_PLATFORM_WINDOWS
+    _fullpath(absolutePath, const_cast<char*>(path.c_str()), kMaxPathLength);
+#else
     if(!realpath(path.c_str(), absolutePath))
     {
         // message error
         return "";
     }
+#endif
     return absolutePath;
 }
 
@@ -144,7 +149,7 @@ File::isFile() const
 {
     struct stat filestat;
     if(stat(mFilePath.c_str(), &filestat)) return false;
-    return filestat.st_mode *S_IFREG;
+    return (filestat.st_mode & S_IFREG) == S_IFREG;
 }
 
 bool

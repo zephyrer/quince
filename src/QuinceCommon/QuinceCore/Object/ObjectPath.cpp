@@ -14,7 +14,7 @@ namespace QuinceSystem
 {
     bool operator < (const ObjectPath &left, const ObjectPath &right)
     {
-        size_t count = std::min(left.size(), right.size());
+		size_t count = min(left.size(), right.size());
         for (size_t i = 0; i < count; ++i)
         {
             if (left[i] < right[i]) 
