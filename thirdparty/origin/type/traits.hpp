@@ -192,4 +192,62 @@ template <typename T>
   constexpr bool Array() { return std::is_array<T>::value; }
 
 // Returns the number of dimensions of the array type T. 
-// If T is 
+// If T is not an array, it has 0 dimensions. 
+// For example:
+//
+// using A1 = int[3][2];
+// static_assert(Rank<A1>() == 2);
+//
+// using A2 = int[5];
+// static_assert(Rank<A2>() == 1);
+//
+// using A3 = int;
+// static_assert(Rank<A3>() == 0);
+//
+template <typename T>
+  constexpr unsigned Rank() { return std::rank<T>::value; }
+
+// Returns the extent of the array type T in the Ith dimension. 
+// The extent of an array is the number of subobjects allocated in that dimensions.
+// For example:
+//
+// using A = int[3][2];
+// static_assert(Extent<A, 0>() == 3, "");
+// static_assert(Extent<A, 1>() == 2, "");
+//
+// If the dimension I is not given, it defaults to 0.
+template <typename T, unsigned I = 0>
+  constexpr std::size_t Extent() { return std::extent<T, I>::value; }
+
+// An alias to the underlying value type of the array type T.
+// For example:
+// 
+// using A = int[3][2];
+// using B = Remove_extent<A>;
+// static_assert(Same<B, int[3]>(), "");
+template <typename T>
+  using Remove_extent = typename std::remove_extent<T>::type;
+
+// An alias to the underlying value type of the array type T.
+// For example:
+//
+// using A = int[3][2];
+// using B = Remove_all_extents<A>;
+// static_assert(Same<B, int>(), "");
+template <typename T>
+  using Remove_all_extents = typename std::remove_all_extents<T>::type;
+
+// Returns true if T is a pointer.
+template <typename T>
+  constexpr bool Pointer() { return std::is_pointer<T>::value; }
+
+// An alias to a pointer-to-T.
+template <typename T>
+  using Add_pointer = typename std::add_pointer<T>::type;
+
+// An alias to the underlying type U if T is a pointer to U.
+template <typename T>
+  using Remove_pointer = typename std::remove_pointer<T>::type;
+
+
+
