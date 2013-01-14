@@ -14,7 +14,7 @@ namespace QuinceSystem
 
 class MessageDispatcher;
 
-class QUINCECORE_DLLAPI Application
+class Application
 {
 public:
     virtual ~Application() {}

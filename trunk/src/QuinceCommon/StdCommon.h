@@ -39,9 +39,9 @@ namespace QuinceSystem
 {
     using std::string;
     using std::vector;
+    using std::map;
     using std::shared_ptr;
     using std::unique_ptr;
-    using std::map;
 }
 
 #endif
