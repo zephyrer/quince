@@ -122,3 +122,74 @@ template <typename T>
   }
 
 #include "traits.impl/operators.hpp"
+
+// Returns true if every argument is true of if no arguments are given
+constexpr bool All() { return true; }
+template <typename... Args>
+  constexpr bool All(bool b, Args... args)
+  {
+    return b && All(args...);
+  }
+
+// Returns true if some argument is true.
+constexpr bool Some() { return false; }
+
+template <typename... Args>
+  constexpr bool Some(bool b, Args... args)
+  {
+    return b || Some(args...);
+  }
+
+// Returns true if every argument is false or if no arguments are given
+constexpr bool None() { return true; }
+
+template <typename... Args>
+  constexpr bool None(bool b, Args... args)
+  {
+    return !b && None(args...);
+  }
+
+template <typename T>
+  constexpr bool Void() 
+  {
+    return std::is_void<T>::value;
+  }
+
+// Returns true if T is a signed or unsigned, possibly cv-qualified, bool,
+// char, short, int, long or long long.
+template <typename T>
+  constexpr bool Integer() 
+  {
+    return std::is_integral<T>::value; 
+  }
+
+//Returns true if T is a signed type. Note that floating point values
+// are signed.
+template <typename T>
+  constexpr bool Signed() { return std::is_signed<T>::value; }
+
+// Returns true if T is an unsigned type.
+template <typename T>
+  constexpr bool Unsigned() { return std::is_unsigned<T>::value; }
+
+#include "traits.impl/integer.hpp"
+
+
+// An alias for the unsigned integral type with the same width as T.
+template <typename T>
+  using Make_unsigned = typename make_unsigned<T>::type;
+
+// An alias for the signed integral type with the same width as T.
+template <typename T>
+  using Make_signed = typename make_signed<T>::type;
+
+// Returns true if T is a float, double, or long double.
+template <typename T>
+  constexpr bool Floating_point() { return std::is_floating_point<T>::value; }
+
+// Return true if T is an array type of type U[N]
+template <typename T>
+  constexpr bool Array() { return std::is_array<T>::value; }
+
+// Returns the number of dimensions of the array type T. 
+// If T is 
