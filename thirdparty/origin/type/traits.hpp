@@ -63,6 +63,38 @@ template <typename... Args>
     return !Same<Args...>();
   }
 
+// The common_type trait defines the basic mechanism by which the common type
+// lattice is defined. The type trait is part of the public interface because
+// it can be specialized by a user to disambiguate conversions or to derive a 
+// new type that is not one of the type arguments. For example, if T and U are
+// mutually convertible, common_type must be specialized to select one of those
+// conversions as being dominant. If the common type C of T and U is neither of 
+// those types, the common_type must be specialized to derive C. An example of
+// this is std::duration.
+//
+// In general, it is preferable to avoid explicit specialization of this relation.
+// The first approach to defining an appropriate conversion lattice is to 
+// use the standard mechanisums for conversion.
+
+template <typename... Args>
+  struct common_type;
+
+// The common type of a single type is obviously that type.
+template <typename T>
+  struct common_type<T>
+  {
+    using type = T;
+  };
+
+// The common type relation. This specialization is the primary mechanism by 
+// which common type is defined, and by which it is extended.
+template <typename T, typename U>
+  struct common_type<T, U>
+  {
+  private:
+    template <typename X, typename Y>
+      static auto check(X&& a, Y&& b) -> decltype(true ? a : b);
+
 // An alias to the first type in a non-empty sequence of type arguments.
 // For example:
 //
@@ -248,6 +280,68 @@ template <typename T>
 // An alias to the underlying type U if T is a pointer to U.
 template <typename T>
   using Remove_pointer = typename std::remove_pointer<T>::type;
+
+#include "traits.impl/reference.hpp"
+
+// Returns true if T is an lvalue reference to some type U.
+template <typename T>
+  constexpr bool Rvalue_reference()
+  {
+    return std::is_rvalue_reference<T>::value;
+  };
+
+// Return true if T is either an lvalue or rvalue reference to some type U.
+template <typename T>
+  constexpr bool Reference() 
+  {
+    return std::is_reference<T>::value;
+  };
+
+// An alias to an lvalue-reference-to-T.
+template <typename T>
+  using Add_lvalue_reference = typename std::add_lvalue_reference<T>::type;
+
+// An alias to an rvalue-reference-to-T.
+template <typename T>
+  using Add_rvalue_reference = typename std::add_rvalue_reference<T>::type;
+
+// Refers to an lvalue-reference-to-T if it can be formed.
+template <typename T>
+  using Require_lvalue_reference =
+    typename require_lvalue_reference<T>::type;
+
+// Refers to an rvalue-reference-to-T if it can be formed.
+template <typename T>
+  using Require_rvalue_reference =
+    typename require_rvalue_reference<T>::type;
+
+// Returns true if T is a class or struct
+template <typename T>
+  constexpr bool Class() { return std::is_class<T>::value; }
+
+// Returns true if T is a union.
+template <typename T>
+  constexpr bool Union() { return std::is_union<T>::value; }
+
+// Returns true if T has no member variables.
+template <typename T>
+  constexpr bool Empty() { return std::is_empty<T>::value; }
+
+// Returns true if T has at least one virtual method.
+template <typename T>
+  constexpr bool Polymorphic() { return std::is_polymorphic<T>::value; }
+
+// Returns true if T has at least one pure virtual method.
+template <typename T>
+  constexpr bool Abstract() { return std::is_abstract<T>::value; }
+
+// Returns true if T is an enum or enum class.
+template <typename T>
+  constexpr bool Enum() { return std::is_enum<T>::value; }
+
+// An alias to the integer type that stores the values of the enum T.
+template <typename T>
+  using Underlying_type = typename std::underlying_type<T>::type;
 
 
 
