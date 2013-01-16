@@ -51,50 +51,6 @@ template <bool B, typename T, typename F>
 template <std::size_t N, typename... Args>
   using Select = typename selection<N, Args...>::type;
 
-template <typename... Args>
-  constexpr bool Same()
-  {
-    return are_same<Args...>::value;
-  }
-
-template <typename... Args>
-  constexpr bool Different()
-  {
-    return !Same<Args...>();
-  }
-
-// The common_type trait defines the basic mechanism by which the common type
-// lattice is defined. The type trait is part of the public interface because
-// it can be specialized by a user to disambiguate conversions or to derive a 
-// new type that is not one of the type arguments. For example, if T and U are
-// mutually convertible, common_type must be specialized to select one of those
-// conversions as being dominant. If the common type C of T and U is neither of 
-// those types, the common_type must be specialized to derive C. An example of
-// this is std::duration.
-//
-// In general, it is preferable to avoid explicit specialization of this relation.
-// The first approach to defining an appropriate conversion lattice is to 
-// use the standard mechanisums for conversion.
-
-template <typename... Args>
-  struct common_type;
-
-// The common type of a single type is obviously that type.
-template <typename T>
-  struct common_type<T>
-  {
-    using type = T;
-  };
-
-// The common type relation. This specialization is the primary mechanism by 
-// which common type is defined, and by which it is extended.
-template <typename T, typename U>
-  struct common_type<T, U>
-  {
-  private:
-    template <typename X, typename Y>
-      static auto check(X&& a, Y&& b) -> decltype(true ? a : b);
-
 // An alias to the first type in a non-empty sequence of type arguments.
 // For example:
 //
@@ -180,6 +136,87 @@ template <typename... Args>
   {
     return !b && None(args...);
   }
+
+template <typename... Args>
+  constexpr bool Same()
+  {
+    return are_same<Args...>::value;
+  }
+
+template <typename... Args>
+  constexpr bool Different()
+  {
+    return !Same<Args...>();
+  }
+
+// The common_type trait defines the basic mechanism by which the common type
+// lattice is defined. The type trait is part of the public interface because
+// it can be specialized by a user to disambiguate conversions or to derive a 
+// new type that is not one of the type arguments. For example, if T and U are
+// mutually convertible, common_type must be specialized to select one of those
+// conversions as being dominant. If the common type C of T and U is neither of 
+// those types, the common_type must be specialized to derive C. An example of
+// this is std::duration.
+//
+// In general, it is preferable to avoid explicit specialization of this relation.
+// The first approach to defining an appropriate conversion lattice is to 
+// use the standard mechanisums for conversion.
+
+template <typename... Args>
+  struct common_type;
+
+// The common type of a single type is obviously that type.
+template <typename T>
+  struct common_type<T>
+  {
+    using type = T;
+  };
+
+// The common type relation. This specialization is the primary mechanism by 
+// which common type is defined, and by which it is extended.
+template <typename T, typename U>
+  struct common_type<T, U>
+  {
+  private:
+    template <typename X, typename Y>
+      static auto check(X&& a, Y&& b) -> decltype(true ? a : b);
+
+      static subst_failure check(...);
+      
+      using C = decltype(check(std::declval<T>(), std::declval<U>()));
+  public:
+    using type = typename std::remove_const<
+      typename std::remove_reference<C>::type
+    >::type;
+  };
+
+// When the type arguments are the same, we can bypass the deduction on the 
+// conditional operator.
+template <typename T>
+  struct common_type<T, T>
+  {
+    using type = typename std::remove_const<
+      typename std::remove_reference<T>::type
+    >::type;
+  };
+
+// The recursive definition of common type simply applies the common type
+// to each pair of types in turn.
+template <typename T, typename U, typename... Args>
+  struct common_type<T, U, Args...>
+    : common_type<typename common_type<T, U>::type, Args...>
+  {};
+
+template <typename... Args>
+  using Common_type = typename common_type<Args...>::type;
+
+
+template <typename... Args>
+  constexpr bool Common()
+  {
+    return Subst_succeeded<Common_type<Args...>>();
+  }
+
 
 template <typename T>
   constexpr bool Void() 
