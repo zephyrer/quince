@@ -3,6 +3,7 @@
 #
 # Solution Properties
 #
+
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -11,10 +12,16 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     SET(OS "Linux")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     SET(OS "Windows")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "CygWin")
+    SET(OS "CygWin")
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 if(APPLE)
     SET( CMAKE_CXX_COMPILER /opt/local/bin/g++-mp-4.8 )
+endif()
+
+if(CygWin)
+    set(CMAKE_LEGACY_CYGWIN_WIN32 1)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -29,6 +36,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
         message(FATAL_ERROR "C++11 needed. Therefore a gcc compiler with a version higher than 4.3 is needed.")   
    endif()
 endif(CMAKE_COMPILER_IS_GNUCXX)
+
+SET(CMAKE_CXX_FLAGS "-std=c++11")
 
 PROJECT(QuinceSystem)
 # have a test

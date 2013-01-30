@@ -34,6 +34,7 @@
 #include <cstddef>
 #include <cstring>
 #include <ctime>
+#include <climits>
 
 namespace QuinceSystem
 {
