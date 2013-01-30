@@ -39,6 +39,8 @@ ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 SET (project_LIBS ${Boost_LIBRARIES})
 
+SET(CMAKE_CXX_FLAGS "-std=c++11")
+
 #
 # Add Precompile File
 #

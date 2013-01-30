@@ -9,6 +9,7 @@
 #include "Stdafx.h"
 #include "File.h"
 #include <sys/stat.h>
+#include <cstdlib>
 
 using namespace std;
 using namespace QuinceSystem;
@@ -28,6 +29,8 @@ string GetAbsolutePath(const string& path)
 
 #if defined QUINCE_PLATFORM_WINDOWS
     _fullpath(absolutePath, const_cast<char*>(path.c_str()), kMaxPathLength);
+#elif defined QUINCE_PLATFORM_CYGWIN
+    return "";
 #else
     if(!realpath(path.c_str(), absolutePath))
     {

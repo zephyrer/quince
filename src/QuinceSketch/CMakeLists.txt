@@ -38,6 +38,9 @@ FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 SET (Quince_LIBS "QuinceCore" "QuinceDoc")
 SET (project_LIBS ${Boost_LIBRARIES} ${Quince_LIBS})
 
+SET(CMAKE_CXX_FLAG "-std=c++11")
+
+
 ADD_PCH_RULE("Stdafx.h" ${project_SRCS})
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${project_SRCS} )
