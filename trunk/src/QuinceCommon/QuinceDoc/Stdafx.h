@@ -13,5 +13,6 @@
 #include "StdCommon.h"
 #include "BoostCommon.h"
 #include "QuinceDoc.h"
+#include "PlatformCommon.h"
 
 #endif

@@ -9,5 +9,7 @@
 #ifndef QUINCESYSTEM_QUINCESKETCH_H
 #define QUINCESYSTEM_QUINCESKETCH_H
 
+#include "QuinceCore.h"
+#include "QuinceDoc.h"
 
 #endif 
