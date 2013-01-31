@@ -18,6 +18,7 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 if(APPLE)
     SET( CMAKE_CXX_COMPILER /opt/local/bin/g++-mp-4.8 )
+    add_definitions("-std=gnu++11")
 endif()
 
 if(CygWin)

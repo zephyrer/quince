@@ -90,35 +90,35 @@ ObjectPath::operator + (const ObjectID &id) const
 ObjectPath
 ObjectPath::operator +(const ObjectPath &other) const
 {
-	ObjectPath result(*this);
-	result.insert(result.end(), other.begin(), other.end());
-	return result;
+    ObjectPath result(*this);
+    result.insert(result.end(), other.begin(), other.end());
+    return result;
 }
 ObjectPath &
 ObjectPath::operator +=(const ObjectID &id)
 {
-	push_back(id);
-	return *this;
+    push_back(id);
+    return *this;
 }
 
 ObjectPath &
 ObjectPath::operator +=(const ObjectPath &other)
 {
-	insert(end(), other.begin(), other.end());
-	return *this;
+    insert(end(), other.begin(), other.end());
+    return *this;
 }
 
 string
 ObjectPath::toString() const
 {
-	string result;
-	for (size_t i = 0; i < size(); ++i) {
-		result += lexical_cast<string>(operator[](i)) + '.';
-	}
-	if (not result.empty()) {
-		result.resize(result.size() - 1);
-	}
-	return result;
+    string result;
+    for (size_t i = 0; i < size(); ++i) {
+        result += lexical_cast<string>(operator[](i)) + '.';
+    }
+    if (not result.empty()) {
+        result.resize(result.size() - 1);
+    }
+    return result;
 }
 
 ObjectPath
@@ -130,7 +130,7 @@ ObjectPath::slice(int start, int end) const
 	if (end < 0) end = len + end;
 	end = min(len, end);
 	if (start < end) {
-		return ObjectPath(begin() + start, begin() + end);
+           return ObjectPath(begin() + start, begin() + end);
 	}
 	return ObjectPath();
 }
