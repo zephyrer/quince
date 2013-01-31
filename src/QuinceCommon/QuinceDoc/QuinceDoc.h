@@ -11,15 +11,8 @@
 
 #include "QuinceCore.h"
 
-#if defined (__linux__) || defined (__linux)
-#define LINUX 1
-#endif 
 
-#if defined (__MACH__) || defined (__APPLE__)
-#define MACOS 1
-#endif
-
-#if defined QUINCEDOC_STATIC || defined LINUX || defined MACOS
+#if defined QUINCEDOC_STATIC || defined QUINCE_PLATFORM_LINUX || defined QUINCE_PLATFORM_MACOS || defined QUINCE_PLATFORM_CYGWIN
     #define QUINCEDOC_DLLAPI
 #else
     #ifdef QUINCEDOC_EXPORTS

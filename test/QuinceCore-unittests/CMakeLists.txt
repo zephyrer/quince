@@ -5,6 +5,8 @@ SET (Quince_LIBS "QuinceCore")
 SET (test_LIBS ${Boost_LIBRARIES} ${Quince_LIBS})
 SET (test_BIN ${PROJECT_NAME})
 
+SET(CMAKE_CXX_FLAGS "-std=c++11")
+
 INCLUDE_DIRECTORIES("${MAINFOLDER}/src/QuinceCommon/QuinceCore")
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${test_LIBS})

@@ -9,8 +9,7 @@
 #ifndef QUINCESKETCH_STDAFX_H
 #define QUINCESKETCH_STDAFX_H
 
-#include "QuinceSketch.h"
-#include "StdCommon.h"
-#include "BoostCommon.h"
+#include "QuinceCore.h"
+#include "QuinceDoc.h"
 
 #endif 
