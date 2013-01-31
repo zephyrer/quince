@@ -12,7 +12,7 @@
 #include "QuinceCore.h"
 
 
-#if defined QUINCEDOC_STATIC || defined QUINCE_PLATFORM_LINUX || defined QUINCE_PLATFORM_MACOS || defined QUINCE_PLATFORM_CYGWIN
+#if defined QUINCEDOC_STATIC || defined QUINCE_PLATFORM_LINUX || defined QUINCE_PLATFORM_MACOSX || defined QUINCE_PLATFORM_CYGWIN
     #define QUINCEDOC_DLLAPI
 #else
     #ifdef QUINCEDOC_EXPORTS
