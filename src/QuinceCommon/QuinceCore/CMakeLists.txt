@@ -5,7 +5,6 @@
 #
 # Project Properties
 #
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
 
 PROJECT (QuinceCore)
 SET (APPLICATION_NAME "Quince Core")
