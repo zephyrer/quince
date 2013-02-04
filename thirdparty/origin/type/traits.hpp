@@ -380,5 +380,83 @@ template <typename T>
 template <typename T>
   using Underlying_type = typename std::underlying_type<T>::type;
 
+///////////////////////////////////////////////////////////////////////
+// Composite categories
+// 
+// These traits query the composite categories of primary types. Note that
+// there are other categories (e.g. Reference), but these do not belong to 
+// any more obvious grouping.
+//
 
+// Returns true if T is an object type. An object type is any type that can
+// be placed in a region of memory. Void, reference, and function types are
+// not object types.
+template <typename T>
+  constexpr bool Object() { return std::is_object<T>::value; }
 
+// Returns true if T is a scalar type. A scalar type is an object type that is 
+// an integer type, floating point type, or pointer. Compound types (classes,
+// unions, and arrays) are not scalar.
+template <typename T>
+  constexpr bool Scalar() { return std::is_scalar<T>::value; }
+
+// Returns true if T is a compound type. Compound types are class types,
+// union types, and arrays.
+template <typename T>
+  constexpr bool Compound() { return std::is_compound<T>::value; }
+
+// Returns true if T is a built-in type
+template <typename T>
+  constexpr bool Fundamental() { return std::is_fundamental<T>::value; }
+
+// Returns true if T is an arithmetic type. Integer and floating point types
+// are arithmetic types.
+template <typename T>
+  constexpr bool Arithmetic() { return std::is_arithmetic<T>::value; }
+
+////////////////////////////////////////////////////////////////////////////////
+// Qualifiers
+//
+// The following type traits implement queries and transformations for const
+// and volatile qualifiers.
+////////////////////////////////////////////////////////////////////////////////
+
+// Returns true if T is const-qualified
+template <typename T>
+  constexpr bool Const() { return std::is_const<T>::value; }
+
+// Returns true if T is volatile-qualified
+template <typename T>
+  constexpr bool Volatile() { return std::is_volatile<T>::value; }
+
+// Returns true if T is cv-qualified.
+template <typename T>
+  constexpr bool Qualified() { return Const<T>() || Volatile<T>(); }
+
+// An alias to const-qualified T
+template <typename T>
+  using Add_const = typename std::add_const<T>::type;
+
+// An alias to const-volatile-qualified T
+template <typename T>
+  using Add_volatile = typename std::add_volatile<T>::type;
+
+// An alias to const volatile qualified T
+template <typename T>
+  using Add_cv = typename std::add_cv<T>::type;
+
+// An alias to U if T has type const U, otherwise T.
+template <typename T>
+  using Remove_const = typename std::remove_const<T>::type;
+
+// An alias to U if T has type volatile U, otherwise T.
+template <typename T>
+  using Remove_volatile = typename std::remove_volatile<T>::type;
+
+// An alias to U if T is cv-qualified or T otherwise.
+template <typename T>
+  using Remove_cv = typename std::remove_cv<T>::type;
+
+// Decay an array into a pointer or a function into a function pointer
+template <typename T>
+  using Decay = typename std::decay<T>::type;
